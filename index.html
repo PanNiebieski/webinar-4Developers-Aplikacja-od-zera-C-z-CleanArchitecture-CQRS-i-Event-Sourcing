@@ -260,6 +260,16 @@
         <span class="shout colors" ><span>Przypomny sobie szybko 
             <br /> <span class="green">Clean Architecture</span></span></span>
     </section>
+    <section class="slide creamPP   compact ">
+        <h2>To w czym jest problem w tworzeniu aplikacji warstwowej</h2>
+        <ol class="nonumbers">
+            <li class="next">Mimo iż podzieliśmy to na warstwy to wciąż te warstwy są zależne od siebie
+                <span class="blue">  (zawzyczaj tego nie pilnujemy) </span>
+            </li>
+            <li class="next">Zachowuje się to wszystko jak jedna duża aplikacja. <span class="red"> Monolit</span> </li>
+            <li class="next">Co jeśli poszczególne warstwy <span class="yellow">są nie tylko</span>  do tej aplikacji</li>
+        </ol>
+    </section>
     <section class="slide" style="background-color:white">
         <figure>
             <img class="cover" src="pictures/old/layers/ilewartstw2.png" alt="blog">
@@ -372,11 +382,12 @@
             </div>
           </div>
     </section>  
+
     <section class="slide creamPP   compact ">
         <h2>Co budjemy przy pomocy <span class="giveorange">CQRS</span> i <span class="giveorange">EventSourcing</span> ?</h2>
         <ol class="nonumbers">
             <li class="next">API do dodawania programistów</li>
-            <li class="next">Później możemy odrzucić lub zaacektpować danego programistę</li>
+            <li class="next">Później możemy odrzucić lub zaakceptować danego programistę</li>
             <li class="next">Programista raz odrzucony lub zaakceptowany nie może zmienic swojego statusu</li>
         </ol>
     </section>
@@ -2541,7 +2552,7 @@
         </span></span>
     </section>
     <section class="slide conicG2">
-        <span class="shout colors" ><span class="giveorange">Aggregate</span> : to encja która trzyma inne encje , a w niej są obiekty wartościowe
+        <span class="shout colors" ><span class="giveorange">Aggregate</span> : to encja która trzyma inne encje
             <br /><span>🗃️
 
         </span></span>
@@ -2581,7 +2592,7 @@
     <section class="slide creamPP   compact ">
         <h2>Co klasa abstrakcyjna AggregateRoot powinna mieć</h2>
         <ol class="nonumbers">
-            <li class="next">Możliwość wczytania histori Listy od moich zdarzeń na obiekcie domenowych</li>
+            <li class="next">Możliwość wczytania histori Listy zdarzeń na danym obiekcie domenowych</li>
             <li class="next">Dodanie zmian na podstawie nowego zdarzania</li>
             <li class="next">Zaznaczenie, że zmiany zdarzeniowe są zatwierdzone </li>
         </ol>
@@ -2871,14 +2882,14 @@
                     <code style="line-height: 29px !important;">
                         public interface ISessionForEventSourcing
                         {
-                            ExecutionStatus Add&lt;T&gt;(T aggregate) 
+                            void Add&lt;T&gt;(T aggregate) 
                             where T : AggregateRoot;
 
-                            ExecutionStatus&lt;T&gt; Get&lt;T&gt;
+                            T Get&lt;T&gt;
                             (AggregateKey id, int? expectedVersion = null) 
                             where T : AggregateRoot;
 
-                            ExecutionStatus Commit();
+                            void Commit();
                         }
                     </code>
                 </pre>
@@ -3434,7 +3445,7 @@
             <figcaption class="white">Copyright © 2021 Diagram</figcaption>
         </figure>
     </section>
-    <section class="slide conicG2">
+    <!-- <section class="slide conicG2">
         <span class="shout colors" >Jak wygląda zapisywanie zdarzeń do <br /> <span>bazy w pamięci RAM
             
         </span></span>
@@ -3490,7 +3501,7 @@
                 </pre>
             </div>
         </div>
-    </section>
+    </section> -->
     <section class="slide conicG">
         <span class="shout colors" >Piszemy więc projekt<br /> <span>EventStorePlugin.SQLite
             👨‍💻
